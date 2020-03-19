@@ -5,7 +5,7 @@ class SellerOrderItemData(
     var brand: String? = null,
     var model: String? = null,
     var amount: Int? = null,
-    var price: Int? = null,
-    var totalPrice: Int? = null,
+    var price: Double? = null,
+    var totalPrice: Double? = null,
     var imageResource: String? = null
 )

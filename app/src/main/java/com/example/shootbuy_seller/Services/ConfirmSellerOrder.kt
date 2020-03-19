@@ -1,14 +1,16 @@
 package com.example.shootbuy_seller.Services
 
+import android.graphics.Bitmap
 import android.os.AsyncTask
 import android.util.Log
 import com.example.shootbuy_seller.Models.ProductOrder.SellerOrder
-import com.example.shootbuy_seller.Models.UserData.Seller
 import com.google.gson.Gson
 import java.net.HttpURLConnection
 import java.net.URL
 
-class ConfirmSellerOrder(var sellerOrder: SellerOrder) : AsyncTask<String, String, String>() {
+class ConfirmSellerOrder(
+    var sellerOrder: SellerOrder
+    ) : AsyncTask<String, String, String>() {
     override fun doInBackground(vararg url: String?): String {
 
 

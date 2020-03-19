@@ -8,7 +8,7 @@ class Electronic(
     val electronicBrand: String? = null,
     val electronicModel: String? = null,
     val electronicImage: String? = null,
-    val electronicPrice: Int? = null,
+    val electronicPrice: Double? = null,
     val electronicSpec: String? = null,
     val electronicAmount: Int? = null,
     val color: List<Color>? = null

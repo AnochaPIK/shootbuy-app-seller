@@ -7,7 +7,7 @@ class Furniture(
     val furnitureBrand: String? = null,
     val furnitureModel: String? = null,
     val furnitureImage: String? = null,
-    val furniturePrice: Int? = null,
+    val furniturePrice: Double? = null,
     val furnitureSize: String? = null,
     val furnitureDetail: String? = null,
     val furnitureAmount: Int? = null,
