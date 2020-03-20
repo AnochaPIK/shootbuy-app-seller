@@ -1,43 +1,20 @@
 package com.example.shootbuy_seller
 
-import android.Manifest
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Environment
 import android.widget.Button
-import android.widget.Toast
-import com.github.gcacace.signaturepad.views.SignaturePad
-import kotlinx.android.synthetic.main.activity_signature.*
+import androidx.appcompat.app.AppCompatActivity
 import com.example.shootbuy_seller.Models.ProductOrder.SellerOrder
 import com.example.shootbuy_seller.Services.ConfirmSellerOrder
-import androidx.core.app.ActivityCompat
-import android.content.pm.PackageManager
-import android.Manifest.permission
-import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-import android.app.Activity
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.ImageFormat.JPEG
-import android.os.Environment.DIRECTORY_PICTURES
-import android.os.Environment.getExternalStoragePublicDirectory
-
-import java.io.File
-import java.io.IOException
-
-import android.net.Uri
-import android.os.Environment
-
-import android.util.Log
-import androidx.core.content.ContextCompat
 import com.example.shootbuy_seller.Services.Multipost
+import com.github.gcacace.signaturepad.views.SignaturePad
+import kotlinx.android.synthetic.main.activity_signature.*
+import java.io.File
 import java.io.FileOutputStream
-import java.io.OutputStreamWriter
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
-import java.util.*
-import kotlin.math.sign
 
 
 class SignatureActivity : AppCompatActivity() {
@@ -78,15 +55,15 @@ class SignatureActivity : AppCompatActivity() {
         })
 
         saveSignatureBtn!!.setOnClickListener {
-            //            var f = saveBitmapToImage()
+            var f = saveBitmapToImage()
             var url = IPAddress.ipAddress + "product-order/confirmSellerOrder/"
             var data = SellerOrder(null, orderId)
             ConfirmSellerOrder(data).execute(url)
-            var intent = Intent(this,SellerOrderActivity::class.java)
+            var intent = Intent(this, SellerOrderActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
             finish()
-//            Multipost(f).execute(url)
+            Multipost(f).execute(url)
         }
         clearSignatureBtn!!.setOnClickListener {
             signaturePad.clear()
