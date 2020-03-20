@@ -25,7 +25,6 @@ class SellerOrderActivity : AppCompatActivity() {
 
         var url = IPAddress.ipAddress + "product-order/getSellerOrderList/" + sellerUuid
         GetSellerOrderList(listener).execute(url)
-
     }
 
     override fun onStart() {
@@ -41,8 +40,13 @@ class SellerOrderActivity : AppCompatActivity() {
                 sellerOrderListData.add(
                     SellerOrderListData(
                         sellerOrderList[i].orderId,
-                        sellerOrderList[i].assignDate
-                    )
+                        sellerOrderList[i].assignDate,
+                        sellerOrderList[i].order!!.address!!.addressNumber,
+                        sellerOrderList[i].order!!.address!!.district,
+                        sellerOrderList[i].order!!.address!!.subDistrict,
+                        sellerOrderList[i].order!!.address!!.province,
+                        sellerOrderList[i].order!!.address!!.zipCode
+                        )
                 )
             }
             sellOrderRecyclerView!!.apply {
