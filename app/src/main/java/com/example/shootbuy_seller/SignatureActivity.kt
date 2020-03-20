@@ -78,15 +78,18 @@ class SignatureActivity : AppCompatActivity() {
         })
 
         saveSignatureBtn!!.setOnClickListener {
-            //            var f = saveBitmapToImage()
-            var url = IPAddress.ipAddress + "product-order/confirmSellerOrder/"
-            var data = SellerOrder(null, orderId)
-            ConfirmSellerOrder(data).execute(url)
-            var intent = Intent(this,SellerOrderActivity::class.java)
+            var f = saveBitmapToImage()
+            var url = IPAddress.ipAddress + "product-order/signatureUpload/"
+
+//            var url = IPAddress.ipAddress + "product-order/confirmSellerOrder/"
+//            var data = SellerOrder(null, orderId)
+//            ConfirmSellerOrder(data).execute(url)
+
+            Multipost(signaturePad.signatureBitmap, f,orderId).execute(url)
+            var intent = Intent(this, SellerOrderActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
             finish()
-//            Multipost(f).execute(url)
         }
         clearSignatureBtn!!.setOnClickListener {
             signaturePad.clear()
@@ -107,7 +110,7 @@ class SignatureActivity : AppCompatActivity() {
         var file = File(myDir, fname)
         try {
             var out = FileOutputStream(file)
-            mSignaturePad!!.signatureBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+            mSignaturePad!!.signatureBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)
             out.flush()
             out.close()
 
