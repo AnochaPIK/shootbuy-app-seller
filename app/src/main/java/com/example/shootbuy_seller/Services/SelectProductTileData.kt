@@ -2,12 +2,12 @@ package com.example.shootbuy_seller.Services
 
 import android.os.AsyncTask
 import com.example.shootbuy_seller.Models.ProductData.FoodAndBev
+import com.example.shootbuy_seller.Models.ProductData.Tile
 import com.google.gson.Gson
 import java.net.HttpURLConnection
 import java.net.URL
 
-class SelectProductFoodData(var listener: getDataComplete) : AsyncTask<String, String, String>() {
-    //    var listener:getDataComplete? = null
+class SelectProductTileData(var listener: getDataComplete) : AsyncTask<String, String, String>() {
     override fun doInBackground(vararg url: String?): String {
 
 
@@ -26,12 +26,12 @@ class SelectProductFoodData(var listener: getDataComplete) : AsyncTask<String, S
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
         var gson = Gson()
-        var productFoodData =
-            gson.fromJson(result.toString(), Array<FoodAndBev>::class.java).toList()
-        listener.getDataComplete(productFoodData!!)
+        var tileData =
+            gson.fromJson(result.toString(), Array<Tile>::class.java).toList()
+        listener.getDataComplete(tileData!!)
     }
 
     interface getDataComplete {
-        fun getDataComplete(foodAndBevList: List<FoodAndBev>)
+        fun getDataComplete(jsonString: List<Tile>)
     }
 }
