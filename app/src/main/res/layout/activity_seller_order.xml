@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SellerOrderActivity">
+    tools:context=".SellerOrderActivity"
+    android:paddingTop="10dp"
+    android:paddingHorizontal="20dp"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:id="@+id/txtQue"
+        android:text="Queue"
+        android:textSize="24sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"/>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/txtQue"
+        android:layout_marginTop="10dp"
+        android:background="#DDDDDD" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sellerOrderRecyclerView"
+        android:layout_below="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical" />
 
-</LinearLayout>
+</RelativeLayout>

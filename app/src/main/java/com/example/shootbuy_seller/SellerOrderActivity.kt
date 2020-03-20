@@ -2,8 +2,8 @@ package com.example.shootbuy_seller
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shootbuy_seller.Adapter.SellerOrderListAdapter
@@ -37,16 +37,16 @@ class SellerOrderActivity : AppCompatActivity() {
         override fun getDataComplete(sellerOrderList: List<SellerOrder>) {
             var sellerOrderListData = ArrayList<SellerOrderListData>()
             for (i in sellerOrderList.indices) {
+                var address =
+                    sellerOrderList[i].order!!.address!!.addressNumber + " " + sellerOrderList[i].order!!.address!!.district + " " +
+                            sellerOrderList[i].order!!.address!!.subDistrict + " " + sellerOrderList[i].order!!.address!!.province + " " +
+                            sellerOrderList[i].order!!.address!!.zipCode
                 sellerOrderListData.add(
                     SellerOrderListData(
                         sellerOrderList[i].orderId,
                         sellerOrderList[i].assignDate,
-                        sellerOrderList[i].order!!.address!!.addressNumber,
-                        sellerOrderList[i].order!!.address!!.district,
-                        sellerOrderList[i].order!!.address!!.subDistrict,
-                        sellerOrderList[i].order!!.address!!.province,
-                        sellerOrderList[i].order!!.address!!.zipCode
-                        )
+                        address
+                    )
                 )
             }
             sellOrderRecyclerView!!.apply {

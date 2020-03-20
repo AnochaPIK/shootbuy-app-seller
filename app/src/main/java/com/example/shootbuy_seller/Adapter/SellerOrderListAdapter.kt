@@ -24,6 +24,7 @@ class SellerOrderListAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val orderId = itemView.findViewById<TextView>(R.id.orderId)
         val assignDate = itemView.findViewById<TextView>(R.id.assignDate)
+        val address = itemView.findViewById<TextView>(R.id.address)
     }
 
     override fun onCreateViewHolder(
@@ -50,6 +51,7 @@ class SellerOrderListAdapter(
 
         holder.orderId.text = sellerOrderListData!![position].orderId.toString()
         holder.assignDate.text = formattedDate
+        holder.address.text = sellerOrderListData!![position].address.toString()
 
         holder.itemView.setOnClickListener {
             var intent = Intent(context, SellerOrderDetailActivity::class.java)
