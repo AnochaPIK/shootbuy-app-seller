@@ -6,7 +6,8 @@
     tools:context=".SellerOrderActivity"
     android:paddingTop="10dp"
     android:paddingHorizontal="20dp"
-    android:paddingBottom="10dp">
+    android:paddingBottom="10dp"
+    android:layout_gravity="center">
 
     <TextView
         android:id="@+id/txtQue"
@@ -15,6 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:textColor="#6F656B"
         android:textStyle="bold" />
 
     <View

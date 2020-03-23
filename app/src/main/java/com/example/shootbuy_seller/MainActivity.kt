@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var TAG = "Google Signin"
     private var RC_SIGN_IN = 1000
     private var googleSignInButton: SignInButton? = null
-    private var signOutBtn: Button? = null
+//    private var signOutBtn: Button? = null
     private var mGoogleSignInClient: GoogleSignInClient? = null
     private lateinit var auth: FirebaseAuth
 
@@ -43,8 +43,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        signOutBtn = findViewById(R.id.signOutBtn)
-        signOutBtn?.setOnClickListener(this)
+        val logout = intent.getStringExtra("Logout")
+
+        if(logout != null)
+        {
+            signOut()
+        }
+//        signOutBtn = findViewById(R.id.signOutBtn)
+//        signOutBtn?.setOnClickListener(this)
         googleSignInButton = findViewById(R.id.google_button)
         googleSignInButton?.setOnClickListener(this@MainActivity)
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.INTERNET),123)
@@ -59,6 +65,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         auth = FirebaseAuth.getInstance()
+
+
     }
 
     override fun onRequestPermissionsResult(
@@ -86,9 +94,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.google_button -> {
                 signIn()
             }
-            R.id.signOutBtn -> {
-                signOut()
-            }
+//            R.id.signOutBtn -> {
+//                signOut()
+//            }
 
         }
     }
@@ -100,6 +108,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun signOut() {
         mGoogleSignInClient?.signOut()
+        var pre = getSharedPreferences("SP_Seller_DATA", Context.MODE_PRIVATE)
+        pre!!.edit().remove("UUID").apply()
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

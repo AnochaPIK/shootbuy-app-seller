@@ -1,8 +1,13 @@
 package com.example.shootbuy_seller
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +33,28 @@ class SellerOrderActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshLis
         pref = getSharedPreferences("SP_Seller_DATA", Context.MODE_PRIVATE)
         sellerUuid = pref!!.getString("UUID", "")
 
+
+
         setDataList()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        var inflater = MenuInflater(this).inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item1 -> {
+                val intent = Intent(this, MainActivity::class.java)
+//            Log.d("Address",oldHolder!!.address.text.toString())
+                intent.putExtra("Logout", "Logout")
+                startActivity(intent)
+                finish()
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setDataList() {

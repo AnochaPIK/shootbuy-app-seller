@@ -4,7 +4,11 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Environment
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Button
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.shootbuy_seller.Models.ProductOrder.SellerOrder
 import com.example.shootbuy_seller.Services.ConfirmSellerOrder
@@ -20,8 +24,8 @@ import java.time.LocalDateTime
 class SignatureActivity : AppCompatActivity() {
     private var orderId: Int? = null
     private var mSignaturePad: SignaturePad? = null
-    private var saveSignatureBtn: Button? = null
-    private var clearSignatureBtn: Button? = null
+    private var saveSignatureBtn: LinearLayout? = null
+    private var clearSignatureBtn: LinearLayout? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,12 +70,31 @@ class SignatureActivity : AppCompatActivity() {
             var intent = Intent(this, SellerOrderActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
-            finish()
+            finishAffinity()
 
         }
         clearSignatureBtn!!.setOnClickListener {
             signaturePad.clear()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        var inflater = MenuInflater(this).inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item1 -> {
+                val intent = Intent(this, MainActivity::class.java)
+//            Log.d("Address",oldHolder!!.address.text.toString())
+                intent.putExtra("Logout", "Logout")
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+                finishAffinity()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun saveBitmapToImage(): File {

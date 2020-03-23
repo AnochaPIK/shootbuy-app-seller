@@ -14,6 +14,8 @@ import com.example.shootbuy_seller.R
 import com.example.shootbuy_seller.SellerOrderActivity
 import com.example.shootbuy_seller.SellerOrderDetailActivity
 import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SellerOrderListAdapter(
     var sellerOrderListData: ArrayList<SellerOrderListData>? = null,
@@ -45,7 +47,8 @@ class SellerOrderListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var dateTime = sellerOrderListData!![position].assignDate.toString()
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        val formatter = SimpleDateFormat("dd.MM.yyyy HH:mm")
+        val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm")
+        parser.timeZone = TimeZone.getTimeZone("THA")
         val formattedDate =
             formatter.format(parser.parse(sellerOrderListData!![position].assignDate.toString())!!)
 

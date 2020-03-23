@@ -13,11 +13,45 @@
         android:layout_above="@+id/signatureBtn"
         android:scrollbars="vertical" />
 
-    <Button
+
+
+
+    <RelativeLayout
         android:id="@+id/signatureBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Signature" />
+        android:layout_margin="10dp"
+        android:background="@drawable/mybtn">
+
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/contract"
+                android:layout_centerVertical="true"/>
+
+            <Button
+                android:duplicateParentState="true"
+                android:clickable="false"
+                android:id="@+id/Btn"
+                android:layout_width="wrap_content"
+                android:background="@null"
+                android:layout_height="wrap_content"
+                android:textColor="#FFF"
+                android:text="Signature"/>
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
 
 </RelativeLayout>

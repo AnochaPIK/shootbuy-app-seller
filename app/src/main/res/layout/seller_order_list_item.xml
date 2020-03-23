@@ -9,12 +9,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Order #"
+        android:textColor="#194375"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/orderId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#194375"
+        android:textStyle="italic"
         android:layout_toEndOf="@+id/orderIdLabel"
         android:textSize="18sp" />
 
@@ -23,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:textStyle="bold"
         android:textSize="18sp" />
 
     <TextView
