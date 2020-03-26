@@ -45,10 +45,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
         val logout = intent.getStringExtra("Logout")
 
-        if(logout != null)
-        {
-            signOut()
-        }
+
 //        signOutBtn = findViewById(R.id.signOutBtn)
 //        signOutBtn?.setOnClickListener(this)
         googleSignInButton = findViewById(R.id.google_button)
@@ -65,6 +62,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         auth = FirebaseAuth.getInstance()
+
+        if(logout != null)
+        {
+            signOut()
+        }
 
 
     }
@@ -108,8 +110,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun signOut() {
         mGoogleSignInClient?.signOut()
-        var pre = getSharedPreferences("SP_Seller_DATA", Context.MODE_PRIVATE)
-        pre!!.edit().remove("UUID").apply()
+        pref = getSharedPreferences("SP_Seller_DATA", Context.MODE_PRIVATE)
+        pref!!.edit().remove("UUID").commit()
+        sellerUuid = pref!!.getString("UUID", "")
+        Log.d("ss","ss")
 
     }
 
