@@ -19,6 +19,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
+import java.util.*
 
 
 class SignatureActivity : AppCompatActivity() {
@@ -103,10 +104,15 @@ class SignatureActivity : AppCompatActivity() {
         if (!myDir.exists()) {
             myDir.mkdirs()
         }
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        val formatter = SimpleDateFormat("ddMMyyyyHHmmss")
-        val formattedDate =
-            formatter.format(parser.parse(LocalDateTime.now().toString())!!)
+//        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+//        val formatter = SimpleDateFormat("ddMMyyyyHHmmss")
+//        val formattedDate =
+//            formatter.format(parser.parse(Date().toString())!!)
+
+        val parser = SimpleDateFormat("yyyyMMddHHmmss")
+        val formattedDate = parser.format(Date()).toString()
+
+
         var fname = formattedDate + ".jpg"
         var file = File(myDir, fname)
         try {
