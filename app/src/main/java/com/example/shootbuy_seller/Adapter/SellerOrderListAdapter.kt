@@ -13,6 +13,9 @@ import com.example.shootbuy_seller.Models.SellerOrderListData
 import com.example.shootbuy_seller.R
 import com.example.shootbuy_seller.SellerOrderActivity
 import com.example.shootbuy_seller.SellerOrderDetailActivity
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SellerOrderListAdapter(
     var sellerOrderListData: ArrayList<SellerOrderListData>? = null,
@@ -23,6 +26,7 @@ class SellerOrderListAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val orderId = itemView.findViewById<TextView>(R.id.orderId)
         val assignDate = itemView.findViewById<TextView>(R.id.assignDate)
+        val address = itemView.findViewById<TextView>(R.id.address)
     }
 
     override fun onCreateViewHolder(
@@ -41,12 +45,21 @@ class SellerOrderListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        var dateTime = sellerOrderListData!![position].assignDate.toString()
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm")
+        parser.timeZone = TimeZone.getTimeZone("THA")
+        val formattedDate =
+            formatter.format(parser.parse(sellerOrderListData!![position].assignDate.toString())!!)
+
         holder.orderId.text = sellerOrderListData!![position].orderId.toString()
-        holder.assignDate.text = sellerOrderListData!![position].assignDate.toString()
+        holder.assignDate.text = formattedDate
+        holder.address.text = sellerOrderListData!![position].address.toString()
+
         holder.itemView.setOnClickListener {
             var intent = Intent(context, SellerOrderDetailActivity::class.java)
             intent.putExtra("orderId", sellerOrderListData!![position].orderId)
-            startActivity(context!!,intent,null)
+            startActivity(context!!, intent, null)
 //            context!!.finish()
 
         }

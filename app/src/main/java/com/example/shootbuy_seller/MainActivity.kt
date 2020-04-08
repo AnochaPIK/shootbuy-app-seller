@@ -1,14 +1,18 @@
 package com.example.shootbuy_seller
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.shootbuy_seller.Models.UserData.Seller
 import com.example.shootbuy_seller.Services.IfSellerExist
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -23,11 +27,12 @@ import com.google.firebase.auth.GoogleAuthProvider
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
+    private var MY_WRITE_EXTERNAL_STORAGE_CODE = 1111
 
     private var TAG = "Google Signin"
     private var RC_SIGN_IN = 1000
     private var googleSignInButton: SignInButton? = null
-    private var signOutBtn: Button? = null
+//    private var signOutBtn: Button? = null
     private var mGoogleSignInClient: GoogleSignInClient? = null
     private lateinit var auth: FirebaseAuth
 
@@ -38,18 +43,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val logout = intent.getStringExtra("Logout")
 
-        signOutBtn = findViewById(R.id.signOutBtn)
-        signOutBtn?.setOnClickListener(this)
+
+//        signOutBtn = findViewById(R.id.signOutBtn)
+//        signOutBtn?.setOnClickListener(this)
         googleSignInButton = findViewById(R.id.google_button)
         googleSignInButton?.setOnClickListener(this@MainActivity)
-
+        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.INTERNET),123)
         pref = getSharedPreferences("SP_Seller_DATA", Context.MODE_PRIVATE)
         sellerUuid = pref!!.getString("UUID", "")
-        if (sellerUuid != null) {
-            startActivity(Intent(this, SellerOrderActivity::class.java))
-            finish()
-        }
+
+
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -57,6 +62,33 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         auth = FirebaseAuth.getInstance()
+
+        if(logout != null)
+        {
+            signOut()
+        }
+
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if(requestCode===123){
+            if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                ifLoggedIn()
+            }
+        }
+    }
+
+
+    private fun ifLoggedIn() {
+        if (sellerUuid != "") {
+            startActivity(Intent(this, SellerOrderActivity::class.java))
+            finish()
+        }
     }
 
     override fun onClick(v: View?) {
@@ -64,9 +96,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.google_button -> {
                 signIn()
             }
-            R.id.signOutBtn -> {
-                signOut()
-            }
+//            R.id.signOutBtn -> {
+//                signOut()
+//            }
 
         }
     }
@@ -78,6 +110,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun signOut() {
         mGoogleSignInClient?.signOut()
+        pref = getSharedPreferences("SP_Seller_DATA", Context.MODE_PRIVATE)
+        pref!!.edit().remove("UUID").commit()
+        sellerUuid = pref!!.getString("UUID", "")
+        Log.d("ss","ss")
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -6,7 +6,7 @@ class FoodAndBev(
     val foodAndBevBrand: String? = null,
     val foodAndBevModel: String? = null,
     val foodAndBevImage: String? = null,
-    val foodAndBevPrice: Int? = null,
+    val foodAndBevPrice: Double? = null,
     val foodAndBevSize: String? = null,
     val foodAndBevAmount: Int? = null,
     val foodAndBevCal: String? = null,
